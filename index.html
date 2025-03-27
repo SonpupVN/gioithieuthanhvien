@@ -229,18 +229,6 @@
       <h3 id="popup-name"></h3>
       <p id="popup-info"></p>
 
-    </div>
-    <div class="audio-player">
-      <!-- Thẻ audio với thuộc tính controls để hiển thị giao diện điều khiển
-           và thuộc tính autoplay để tự động phát nhạc khi trang được tải.
-           Lưu ý: Một số trình duyệt có thể chặn autoplay nếu không có tương tác người dùng -->
-      <audio controls autoplay>
-        <!-- Thẻ source chỉ định đường dẫn file nhạc và định dạng (thay "chỗ đưa link nhạc" bằng URL file của bạn) -->
-        <source src="aud/kinchana.mp3" type="audio/mpeg">
-        <!-- Thông báo hiển thị nếu trình duyệt không hỗ trợ thẻ audio -->
-        Trình duyệt của bạn không hỗ trợ thẻ audio.
-      </audio>
-
     <script>
       function showPopup(name, imgSrc, info) {
         document.getElementById("popup-name").innerText = name;
