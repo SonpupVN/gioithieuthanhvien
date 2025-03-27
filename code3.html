@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giới thiệu 4 người</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: url("img/background.jpg") no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .title {
+        margin-top: 70px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        color: #333;
+        width: 90%; /* Căn chỉnh tiêu đề */
+        max-width: 1200px;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(220px, 1fr)
+        ); /* Khung linh hoạt cho độ rộng trang */
+        gap: 25px; /* Giãn cách giữa các khung */
+        width: 100%;
+        max-width: 1200px; /* Giới hạn độ rộng của các khung để đẹp mắt hơn */
+        margin-top: 50px; /* Tạo khoảng cách với tiêu đề */
+      }
+
+      .card {
+        position: relative;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: linear-gradient(
+          135deg,
+          rgba(243, 69, 90, 0.8),
+          rgba(243, 119, 204, 0.8)
+        ); /* Làm nổi bật khung thẻ trên nền */
+        padding: 15px;
+      }
+
+      .card:hover {
+        transform: scale(1.05); /* Tạo hiệu ứng zoom nhẹ khi di chuột */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Hiệu ứng đổ bóng */
+      }
+
+      .card img {
+        width: 80%;
+        height: 300px; /* Thêm chiều cao cố định */
+        object-fit: cover; /* Cắt hình ảnh để vừa với kích thước */
+        border-radius: 50%;
+        margin-top: 10px;
+      }
+
+      .card h3 {
+        font-size: 20px;
+        margin: 15px 0;
+        color: #333;
+      }
+
+      .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 400px;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        text-align: center;
+        padding: 20px;
+        z-index: 1000;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        opacity: 0;
+      }
+
+      .popup.active {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+
+      .popup img {
+        width: 50%;
+        border-radius: 50%;
+      }
+
+      .popup h3 {
+        margin: 15px 0 5px;
+        font-size: 20px;
+      }
+
+      .popup p {
+        margin: 10px 0;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-out;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .navbar {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        position: fixed; /* Giữ navbar cố định ở trên */
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      .navbar a:hover {
+        color: #f5a623;
+      }
+      .audio-player {
+        margin-top: 20px; /* Tạo khoảng cách phía trên khối này */
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="https://www.facebook.com/nguyen.uc.711627#" id="thongtin"
+        >Thông tin</a
+      >
+      <a href="https://www.facebook.com/nguyenhue.namdinh" id="truonghoc"
+        >Trường Học</a
+      >
+      <a href="https://www.facebook.com/son.nguyenphucnguyen.7" id="timhieuthem"
+        >Tìm Hiểu Thêm</a
+      >
+      <a href="https://www.facebook.com/nguyenhue.namdinh" id="lienHe"
+        >Liên Hệ</a
+      >
+      <a href="https://www.facebook.com/nguyenhue.namdinh" id="Hocvan"
+        >Học Vấn</a
+      >
+      <a href="https://www.facebook.com/nguyenhue.namdinh" id="damme"
+        >Đam mê</a
+      >
+    </div>
+    <div class="title">Giới thiệu thành viên trong bàn</div>
+    <div class="container">
+      <div
+        class="card"
+        onclick="showPopup('Nguyễn Phúc Nguyên Sơn', 'img/nguyen_son.jpg', 'Mình là Sơn, hay còn gọi là Sơnpup – một người năng động, đam mê khám phá, đặc biệt là công nghệ thông tin. Với tính cách hòa đồng, mình luôn được mọi người chào đón. Mục tiêu của mình là đỗ NV1 và theo đuổi đam mê đến cùng!')"
+      >
+        <img src="img/nguyen_son.jpg" alt="Nguyễn Phúc Nguyên Sơn" />
+        <h3>Nguyễn Phúc Nguyên Sơn</h3>
+      </div>
+      <div
+        class="card"
+        onclick="showPopup('Nguyễn Đình Thắng', 'img/dinh_thang.jpg', 'Tôi tên là Nguyễn Đình Thắng, học sinh THPT Nguyễn Huệ đam mê khám phá tri thức và thể thao. Yêu thích đá bóng và cầu lông, tôi luôn không ngừng nỗ lực vươn tới đỉnh cao mới.')"
+      >
+        <img src="img/dinh_thang.jpg" alt="Nguyễn Đình Thắng" />
+        <h3>Nguyễn Đình Thắng</h3>
+      </div>
+      <div
+        class="card"
+        onclick="showPopup('Đinh Sơn Tùng', 'img/son_tung.jpg', 'Mình là Đinh Sơn Tùng, học lớp 12, đam mê cầu lông và đặt mục tiêu đỗ vào Kiến Trúc Hà Nội. Mình thích phim ảnh, đặc biệt là I Saw the Devil, và luôn nỗ lực phát triển bản thân.')"
+      >
+        <img src="img/son_tung.jpg" alt="Đinh Sơn Tùng" />
+        <h3>Đinh Sơn Tùng</h3>
+      </div>
+      <div
+        class="card"
+        onclick="showPopup('Nguyễn Anh Đức', 'img/anh_duc.jpg', 'Tôi tên là Anh Đức, một học sinh ham học hỏi. Tôi hiện đang học tại Trường THPT Nguyễn Huệ . Sở thích của tôi là đá bóng, và tôi luôn muốn khám phá thêm về thế giới xung quanh.')"
+      >
+        <img src="img/anh_duc.jpg" alt="Nguyễn Anh Đức" />
+        <h3>Nguyễn Anh Đức</h3>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="popup" id="popup">
+      <button class="close-btn" onclick="closePopup()">Đóng</button>
+      <img id="popup-img" src="" alt="" />
+      <h3 id="popup-name"></h3>
+      <p id="popup-info"></p>
+
+    </div>
+    <div class="audio-player">
+      <!-- Thẻ audio với thuộc tính controls để hiển thị giao diện điều khiển
+           và thuộc tính autoplay để tự động phát nhạc khi trang được tải.
+           Lưu ý: Một số trình duyệt có thể chặn autoplay nếu không có tương tác người dùng -->
+      <audio controls autoplay>
+        <!-- Thẻ source chỉ định đường dẫn file nhạc và định dạng (thay "chỗ đưa link nhạc" bằng URL file của bạn) -->
+        <source src="aud/kinchana.mp3" type="audio/mpeg">
+        <!-- Thông báo hiển thị nếu trình duyệt không hỗ trợ thẻ audio -->
+        Trình duyệt của bạn không hỗ trợ thẻ audio.
+      </audio>
+
+    <script>
+      function showPopup(name, imgSrc, info) {
+        document.getElementById("popup-name").innerText = name;
+        document.getElementById("popup-img").src = imgSrc;
+        document.getElementById("popup-info").innerText = info;
+        document.getElementById("overlay").classList.add("active");
+        document.getElementById("popup").classList.add("active");
+      }
+
+      function closePopup() {
+        document.getElementById("overlay").classList.remove("active");
+        document.getElementById("popup").classList.remove("active");
+      }
+    </script>
+  </body>
+</html>
